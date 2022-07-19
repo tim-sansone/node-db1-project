@@ -8,9 +8,13 @@ const getById = id => {
   return db('accounts').where('id', id).first()
 }
 
+const getByName = name => {
+  return db('accounts').where('name', name).first()
+}
+
 const create = account => {
   return db('accounts').insert(account)
-    .then(id => getById(id))
+    .then(idArray => getById(idArray[0]))
 }
 
 const updateById = (id, account) => {
@@ -19,12 +23,14 @@ const updateById = (id, account) => {
 }
 
 const deleteById = id => {
+  console.log(id)
   return db('accounts').where('id', id).delete()
 }
 
 module.exports = {
   getAll,
   getById,
+  getByName,
   create,
   updateById,
   deleteById,
